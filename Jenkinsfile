@@ -36,6 +36,10 @@ pipeline {
 			steps {
 				echo 'testing...'           
 					sh('visual-wrk -i${sample_interval} -c${concurrency} -d${duration} -j ${case_file} --latency')
+				script {
+					echo 'Testing failed!'
+					currentBuild.result = 'UNSTABLE'
+				}
 			}
 		}
 		stage('Publish') {
